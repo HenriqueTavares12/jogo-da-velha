@@ -1,0 +1,172 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root{
+    --cor-principal: #5BBCED
+}
+
+body{
+    background-color: var(--cor-principal);
+}
+
+#container-content{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+#container-game{
+    padding: 2vh 1.2rem 2px;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1.2rem;
+    
+}
+
+.buttons{
+    padding: .2rem;
+    width: 6.25rem;
+    background-color: #fff;
+    border: none;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    font-size: 1.20rem;
+}
+
+#cerquilha{
+    padding-top: 10vh;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.box{
+    height: 100px;
+    border: 2px solid #fff;
+    flex: 1 1 33%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#box-1,
+#box-2,
+#box-3{
+    border-top: none;
+}
+
+#box-3,
+#box-6,
+#box-9{
+    border-right: none;
+}
+
+#box-7,
+#box-8,
+#box-9{
+    border-bottom: none;
+}
+
+#box-1,
+#box-4,
+#box-7{
+    border-left: none;
+}
+
+.hide{
+    display: none !important;
+}
+
+/* elementos X e O*/
+.x{
+    display: inline-block;
+    color: red;
+    font-size: 4.375rem;
+}
+
+.o{
+    width: 50px;
+    height: 50px;
+    border: 5px solid yellow;
+    border-radius: 50%;
+}
+
+.pontuacao-container{
+    margin-top: 5vh;
+    width: 300px;
+    display: flex;
+    column-gap: 2vw;
+    align-items: baseline;
+}
+
+.pontuacao-box{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#pontuacao-x{
+    color: red;
+    font-size: 40px;
+}
+
+#pontuacao-o{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid yellow;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+#container-mensagem{
+    width: 300px;
+    border: 1px solid black;
+    padding: 0.625rem;
+    position: relative;
+    top: 0;
+    background-color: #fff;
+    border-radius: 0.625rem;
+   
+    transition: all ease 2s;
+    text-align: center;
+}
+
+@keyframes aparecer {
+    0%{
+        
+        opacity: .1;
+    }
+
+    50%{
+        
+        opacity: .4;
+    }
+
+    75%{
+        opacity: .6;
+    }
+
+    100%{
+       
+        opacity: 1;
+    }
+}
+
+#container-mensagem[data-animation="aparecer"]{
+    top: -100px;
+    visibility: visible;
+    animation-name: aparecer;
+    animation-duration: 2s;
+   
+   
+}

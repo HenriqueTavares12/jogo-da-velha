@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container-content">
+        <div id="container-game">
+            <h1>Jogo da Velha</h1>
+            <div id="buttons-container">
+                <button class="buttons">Iniciar</button>
+            </div>
+            <div id="cerquilha" class="hide">
+                <div class="box" id="box-1"></div>
+                <div class="box" id="box-2"></div>
+                <div class="box" id="box-3"></div>
+                <div class="box" id="box-4"></div>
+                <div class="box" id="box-5"></div>
+                <div class="box" id="box-6"></div>
+                <div class="box" id="box-7"></div>
+                <div class="box" id="box-8"></div>
+                <div class="box" id="box-9"></div>
+
+                <div class="pontuacao-container">
+                    <h2>Placar:</h2>
+                    <div class="pontuacao-box">
+                        <span id="pontuacao-x">x</span>:
+                        <span id="pontuacao-jogador-x">0</span>
+                    </div>
+                    <div class="pontuacao-box">
+                        <span id="pontuacao-o"></span>:
+                        <span id="pontuacao-jogador-o">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hide">
+                <div class="x">x</div>
+                <div class="o"></div>
+            </div>
+
+            <div id="container-mensagem" data-animation="">
+                <p>mensagem</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
