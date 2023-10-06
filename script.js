@@ -8,6 +8,7 @@ let pontuacaoX = document.querySelector('#pontuacao-jogador-x');
 let pontuacaoO = document.querySelector('#pontuacao-jogador-o');
 let iaPlayer;
 
+
 // contador de jogadas
 let jogador1 = 0;
 let jogador2 = 0;
@@ -45,7 +46,10 @@ for(let i = 0; i < boxes.length; i++ ){
 for(let i = 0; i < buttons.length; i++){
        buttons[i].addEventListener("click", function(){
 
-            iaPlayer = buttons[i].getAttribute("data-btn-controls");
+            if(buttons[i].getAttribute("data-btn-controls") == 'IA'){
+                iaPlayer = buttons[i].getAttribute("data-btn-controls");
+            }
+            
 
             let reiniciar = document.querySelector('[data-btn-controls="reiniciar"]')
             let voltar = document.querySelector('[data-btn-controls="voltar"]')
@@ -63,17 +67,18 @@ for(let i = 0; i < buttons.length; i++){
                 },500)
 
                 if(buttons[i] == reiniciar){
-                        /** reinicia o jogo */
+                    /** reinicia o jogo */
                     [pontuacaoO,pontuacaoX].forEach(e => {
                         e.textContent = 0;
                     })
 
                     limparJogo();
+                    
+
                 }else if(buttons[i] == voltar){
                     window.location.reload();
                 }
-               
-            
+                     
        });
 
 }
@@ -234,6 +239,7 @@ function limparJogo(){
      // zerar jogadas
      jogador1 = 0;
      jogador2 = 0;
+   
  
      // remover icones X e O do jogo
      let boxesToRemove = document.querySelectorAll('.box div');
@@ -255,7 +261,7 @@ function jogadaIa(){
         // só preenche se estiver vazio a box
         if(boxes[i].childNodes[0] == undefined){
 
-            if(numeroAleatorio <=1){
+            if(numeroAleatorio <= 1){
                 boxes[i].appendChild(cloneO);
                 contador++
                 break;
