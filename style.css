@@ -32,8 +32,8 @@ body{
 }
 
 .buttons{
-    padding: .2rem;
-    width: 6.25rem;
+    padding: .5rem;
+    width: max-content;
     background-color: #fff;
     border: none;
     border-radius: 0.625rem;
@@ -136,8 +136,8 @@ body{
     top: 0;
     background-color: #fff;
     border-radius: 0.625rem;
-   
-    transition: all ease 2s;
+    visibility: hidden;
+    transition: all ease 1s;
     text-align: center;
 }
 
@@ -157,16 +157,19 @@ body{
     }
 
     100%{
-       
+        
         opacity: 1;
+        
     }
 }
 
 #container-mensagem[data-animation="aparecer"]{
-    top: -100px;
     visibility: visible;
     animation-name: aparecer;
-    animation-duration: 2s;
-   
-   
+    animation-duration: .5s;
+}
+
+
+span[class="ganhador"]{
+    font-size: 2rem;
 }

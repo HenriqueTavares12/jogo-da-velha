@@ -4,6 +4,10 @@ let x = document.querySelector('.x');
 let o = document.querySelector('.o');
 let containerMensagem = document.querySelector('#container-mensagem');
 let textoMensagem = document.querySelector('#container-mensagem p');
+let pontuacaoX = document.querySelector('#pontuacao-jogador-x');
+let pontuacaoO = document.querySelector('#pontuacao-jogador-o');
+let iaPlayer;
+
 // contador de jogadas
 let jogador1 = 0;
 let jogador2 = 0;
@@ -21,6 +25,12 @@ for(let i = 0; i < boxes.length; i++ ){
 
             if(jogador1 == jogador2){
                 jogador1++;
+
+                if(iaPlayer == "IA"){
+                    jogadaIa();
+                    jogador2++
+                }
+
             }else{
                 jogador2++;
             }
@@ -31,15 +41,39 @@ for(let i = 0; i < boxes.length; i++ ){
     });
 }
 
-/* iniciar o jogo*/
+/* botões do jogo */
 for(let i = 0; i < buttons.length; i++){
        buttons[i].addEventListener("click", function(){
 
-        setTimeout(function (){
-            let cerquilha = document.querySelector("#cerquilha");
-            cerquilha.classList.remove('hide');
-        },500)
+            iaPlayer = buttons[i].getAttribute("data-btn-controls");
 
+            let reiniciar = document.querySelector('[data-btn-controls="reiniciar"]')
+            let voltar = document.querySelector('[data-btn-controls="voltar"]')
+            
+            for(let l = 0; l < buttons.length; l++){
+                buttons[l].classList.add('hide');
+            }
+
+                setTimeout(function (){
+                    let cerquilha = document.querySelector("#cerquilha");
+                    cerquilha.classList.remove('hide');
+                    reiniciar.classList.remove('hide');
+                    voltar.classList.remove('hide');
+                    
+                },500)
+
+                if(buttons[i] == reiniciar){
+                        /** reinicia o jogo */
+                    [pontuacaoO,pontuacaoX].forEach(e => {
+                        e.textContent = 0;
+                    })
+
+                    limparJogo();
+                }else if(buttons[i] == voltar){
+                    window.location.reload();
+                }
+               
+            
        });
 
 }
@@ -162,22 +196,28 @@ function verificarGanhador(){
 
 /** Limpa o jogo e declara o vencedor e atualiza o placar */
 function declararGanhador(ganhador){
-
-    let pontuacaoX = document.querySelector('#pontuacao-jogador-x');
-    let pontuacaoO = document.querySelector('#pontuacao-jogador-o');
-    let msg = ''
+   let msg = document.createElement('span');
+   
     if(ganhador == 'x'){
-        msg = "Jogador X venceu!";
+        msg.innerHTML = `Jogador <span class="ganhador"> ${ganhador}</span> venceu!`;
         pontuacaoX.textContent = parseInt(pontuacaoX.textContent) + 1;
-    }else if(ganhador == 'o'){
-        msg = "Jogador O venceu!";
+
+    }else if(ganhador == 'o' && iaPlayer == 'IA'){
+        msg.innerHTML = `IA venceu!`;
         pontuacaoO.textContent = parseInt(pontuacaoO.textContent) + 1;
+        
+    }else if(ganhador == 'o'){
+        msg.innerHTML = `Jogador <span class="ganhador"> ${ganhador}</span> venceu!`;
+        pontuacaoO.textContent = parseInt(pontuacaoO.textContent) + 1;
+
     }else{
-        msg = "Deu velha!";
+        msg.innerHTML = "Deu velha!";
     }
 
     /** Exibe a mensagem */
-    textoMensagem.innerHTML = msg;
+
+    textoMensagem.innerHTML = msg.innerHTML;
+
     containerMensagem.setAttribute("data-animation","aparecer");
     containerMensagem.classList.remove('hide');
 
@@ -185,20 +225,49 @@ function declararGanhador(ganhador){
         containerMensagem.classList.add('hide');
     },2500);
 
-    // zerar jogadas
-    jogador1 = 0;
-    jogador2 = 0;
-
-    // remover icones X e O do jogo
-    let boxesToRemove = document.querySelectorAll('.box div');
-    for(let i = 0; i < boxesToRemove.length; i++){
-        boxesToRemove[i].parentNode.removeChild(boxesToRemove[i]);
-    }
+    limparJogo();
 }
 
 
 
+function limparJogo(){
+     // zerar jogadas
+     jogador1 = 0;
+     jogador2 = 0;
+ 
+     // remover icones X e O do jogo
+     let boxesToRemove = document.querySelectorAll('.box div');
+     for(let i = 0; i < boxesToRemove.length; i++){
+         boxesToRemove[i].parentNode.removeChild(boxesToRemove[i]);
+     }
+}
 
+/* lógica da CPU*/ 
+function jogadaIa(){
+    let cloneO= o.cloneNode(true);
+    let preenchido = 0;
+    contador = 0;
 
+    for(let i = 0; i < boxes.length; i++){
 
+        let numeroAleatorio = Math.floor(Math.random() * 5);
+
+        // só preenche se estiver vazio a box
+        if(boxes[i].childNodes[0] == undefined){
+
+            if(numeroAleatorio <=1){
+                boxes[i].appendChild(cloneO);
+                contador++
+                break;
+            }
+        }else{
+            preenchido++;
+        }
+    }
+
+    if(contador == 0 && preenchido < 9){
+        jogadaIa();
+    }
+
+}
 
